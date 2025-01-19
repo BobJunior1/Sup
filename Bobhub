@@ -1,0 +1,445 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Bob hub",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "sup dude",
+   LoadingSubtitle = " cool loading title",
+   Theme = "DarkBlue",
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = True, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "is bob Cool?", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Yes"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Tab = Window:CreateTab("Main") -- Title, Image
+
+local Section = Tab:CreateSection("Esp section")
+
+local Button = Tab:CreateButton({
+   Name = "Esp twisteds",
+   Callback = function() local function createOutline(item)
+    -- Create Highlight to ensure visibility through walls
+    local Highlight = Instance.new('Highlight')
+    Highlight.Parent = item
+    Highlight.Adornee = item
+    Highlight.OutlineColor = Color3.new(1, 1, 1)
+    Highlight.FillColor = Color3.new(1, 0, 0)
+    Highlight.FillTransparency = 0.5
+end
+
+local function applyESP()
+    local monsterNames = {
+        "AstroMonster",
+        "BobetteMonster",
+        "BrightneyMonster",
+        "CoalMonster",
+        "ConnieMonster",
+        "CosmoMonster",
+        "DandyMonster",
+        "FinnMonster",
+        "FlutterMonster",
+        "GigiMonster",
+        "GingerMonster",
+        "GlistenMonster",
+        "GoobMonster",
+        "LooeyMonster",
+        "PebbleMonster",
+        "PoppyMonster",
+        "RazzleDazzleMonster",
+        "RodgerMonster",
+        "RudieMonster",
+        "ScrapsMonster",
+        "ShellyMonster",
+        "ShrimpoMonster",
+        "SproutMonster",
+        "TeaganMonster",
+        "TishaMonster",
+        "ToodlesMonster",
+        "VeeMonster",
+        "BoxtenMonster"
+    }
+
+    for i, v in ipairs(game.Workspace:GetDescendants()) do
+        if v:IsA('Model') and v.Parent.Name == 'Monsters' and table.find(monsterNames, v.Name) then
+            createOutline(v)
+        end
+    end
+end
+
+while true do
+    applyESP()
+    wait(10)
+end
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "esp Items",
+   Callback = function() local function createOutline(item)
+    -- Create Highlight to ensure visibility through walls
+    local Highlight = Instance.new('Highlight')
+    Highlight.Parent = item
+    Highlight.Adornee = item
+    Highlight.OutlineColor = Color3.new(1, 1, 1) -- White outline
+    Highlight.FillColor = Color3.new(0, 1, 0) -- Blue fill to make it stand out more
+    Highlight.FillTransparency = 0.5 -- Adjust transparency as needed
+end
+
+local function applyESP()
+    local itemNames = {
+        "Chocolate",
+        "Gumball",
+        "Pop",
+        "ProteinBar",
+        "SpeedCandy",
+        "StealthCandy",
+        "SkillCheckCandy",
+        "EnigmaCandy",
+        "Stopwatch",
+        "Instructions",
+        "Bandage",
+        "ChocolateBox",
+        "PopBottle",
+        "JumperCable",
+        "AirHorn",
+        "SmokeBomb",
+        "HealthKit",
+        "Valve",
+        "EjectButton",
+        "ResearchCapsule",
+        "Tape",
+        "Ornament"
+    }
+
+    for i, v in ipairs(game.Workspace:GetDescendants()) do
+        if v:IsA('Model') and v.Parent.Name == 'Items' and table.find(itemNames, v.Name) then
+            createOutline(v)
+        end
+    end
+end
+
+while true do
+    applyESP()
+    wait(10) -- Wait for 10 seconds before reapplying
+end
+
+local function createTextLabel(item)
+    -- Create BillboardGui
+    local billboardGui = Instance.new('BillboardGui')
+    billboardGui.Parent = item
+    billboardGui.Adornee = item
+    billboardGui.Size = UDim2.new(20, 0, 20, 0) -- Increase size even more for bigger text
+    billboardGui.AlwaysOnTop = true
+
+    -- Create TextLabel
+    local textLabel = Instance.new('TextLabel')
+    textLabel.Parent = billboardGui
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Text = item.Name
+    textLabel.TextColor3 = Color3.new(0, 1, 0) -- White text color
+    textLabel.TextStrokeTransparency = 0 -- Outline text for better readability
+    textLabel.TextScaled = true
+    textLabel.Font = Enum.Font.SourceSansBold -- Optional: make the text bold
+end
+
+local function applyESP()
+    local itemNames = {
+        "Chocolate",
+        "Gumball",
+        "Pop",
+        "ProteinBar",
+        "SpeedCandy",
+        "StealthCandy",
+        "SkillCheckCandy",
+        "EnigmaCandy",
+        "Stopwatch",
+        "Instructions",
+        "Bandage",
+        "ChocolateBox",
+        "PopBottle",
+        "JumperCable",
+        "AirHorn",
+        "SmokeBomb",
+        "HealthKit",
+        "Valve",
+        "EjectButton",
+        "ResearchCapsule",
+        "Tape",
+        "Ornament"
+    }
+
+    for i, v in ipairs(game.Workspace:GetDescendants()) do
+        if v:IsA('Model') and v.Parent.Name == 'Items' and table.find(itemNames, v.Name) then
+            createTextLabel(v)
+        end
+    end
+end
+
+while true do
+    applyESP()
+    wait(10) -- Wait for 10 seconds before reapplying
+end
+
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "esp Generators",
+   Callback = function() local function createOutline(item)
+    -- Create Highlight to ensure visibility through walls
+    local Highlight = Instance.new('Highlight')
+    Highlight.Parent = item
+    Highlight.Adornee = item
+    Highlight.OutlineColor = Color3.new(1, 1, 1) -- White outline
+    Highlight.FillColor = Color3.new(0, 0, 1) -- Blue fill to make it stand out more
+    Highlight.FillTransparency = 0.5 -- Adjust transparency as needed
+end
+
+local function applyESP()
+    local targetItem = "Generator" -- The item to highlight
+
+    for i, v in ipairs(game.Workspace:GetDescendants()) do
+        if v:IsA('Model') and v.Parent.Name == 'Generators' and v.Name == targetItem then
+            createOutline(v)
+        end
+    end
+end
+
+while true do
+    applyESP()
+    wait(10) -- Wait for 10 seconds before reapplying
+end
+    
+   end,
+})
+
+
+local Button = Tab:CreateButton({
+   Name = "Player Esp",
+   Callback = function() local function createOutline(player)
+    -- Create Highlight to ensure visibility through walls
+    local Highlight = Instance.new('Highlight')
+    Highlight.Parent = player.Character
+    Highlight.Adornee = player.Character
+    Highlight.OutlineColor = Color3.new(1, 1, 1) -- White outline
+    Highlight.FillColor = Color3.new(0, 0, 1) -- Blue fill to make it stand out more
+    Highlight.FillTransparency = 0.8 -- Adjust transparency as needed
+end
+
+local function applyESP()
+    for i, player in ipairs(game.Players:GetPlayers()) do
+        if player.Character then
+            createOutline(player)
+        end
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function()
+        wait(1) -- Wait a moment to ensure character is fully loaded
+        createOutline(player)
+    end)
+end)
+
+while true do
+    applyESP()
+    wait(10) -- Wait for 10 seconds before reapplying
+end
+   end,
+})
+
+local Section = Tab:CreateSection("Speed section")
+
+local Slider = Tab:CreateSlider({
+   Name = "Walkspeed",
+   Range = {15, 35},
+   Increment = 10,
+   Suffix = "range",
+   CurrentValue = 15,
+   Flag = "Slider1",
+   Callback = function(Value) local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+local desiredWalkSpeed = Value
+
+-- Function to set walk speed
+local function setWalkSpeed(speed)
+    humanoid.WalkSpeed = speed
+end
+
+-- Set the initial walk speed
+setWalkSpeed(desiredWalkSpeed)
+
+-- Listen for changes in the character
+humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+    if humanoid.WalkSpeed ~= desiredWalkSpeed then
+        setWalkSpeed(desiredWalkSpeed)
+    end
+end)
+
+-- Listen for when the character respawns
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = character:WaitForChild("Humanoid")
+    setWalkSpeed(desiredWalkSpeed)
+
+    -- Reconnect the change listener
+    humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+        if humanoid.WalkSpeed ~= desiredWalkSpeed then
+            setWalkSpeed(desiredWalkSpeed)
+        end
+    end)
+end)
+   
+ end,
+})
+
+local Section = Tab:CreateSection("Visual")
+
+local Button = Tab:CreateButton({
+   Name = "Fullbright",
+   Callback = function()
+-- Improved Visibility Script
+game:GetService("Lighting").Brightness = 0.7
+game:GetService("Lighting").Ambient = Color3.new(0.75, 0.75, 0.75)
+game:GetService("Lighting").OutdoorAmbient = Color3.new(0.75, 0.75, 0.75)
+game:GetService("Lighting").GlobalShadows = false
+game:GetService("Lighting").FogEnd = 100000
+   end,
+})
+
+local Section = Tab:CreateSection("Other")
+
+local Button = Tab:CreateButton({
+   Name = "Noclip",
+   Callback = function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local head = character:WaitForChild("Head")
+
+-- Function to make a part uncollidable
+local function makeUncollidable(part)
+    part.CanCollide = false
+end
+
+-- Function to handle touches
+local function onTouch(otherPart)
+    -- Ignore if the part is the floor the player is standing on
+    if otherPart:IsDescendantOf(game.Workspace.Terrain) then
+        return
+    end
+
+    -- Ignore if the part is already in process
+    if not otherPart.CanCollide then
+        return
+    end
+
+    -- Make the part uncollidable
+    makeUncollidable(otherPart)
+end
+
+-- Connect the touch event to Head
+head.Touched:Connect(onTouch)
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "chat bypass",
+   Callback = function()
+   loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/loader.lua"))()
+   end,
+})
+
+local Tab = Window:CreateTab("other hubs")
+
+local Button = Tab:CreateButton({
+   Name = "spooks hub",
+   Callback = function()
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/ApparentlySpooks/dandysworldspookshub/refs/heads/main/obfuscated%20spooks%20hub%20dandys%20world.lua'))()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "hxc hub",
+   Callback = function()
+   loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/hooaczx/Script/main/lnfinitive%20Ui"))()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "egas hub",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/Amo1224gus/iriska/refs/heads/main/egashub.lua"))();
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = " Noxious hub",
+   Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/y8eKgLSs"))()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "hex hub",
+   Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/N4Y01FkS"))();
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "glisten's animation closet",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/RodeStriker/TheDandyHelper/refs/heads/main/GAC"))()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "G0bbyD0llan hub",
+   Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/QQt4pVtu"))()
+   end,
+})
+
+local Section = Tab:CreateSection("End")
+
+local Tab = Window:CreateTab("Credits")
+
+local Button = Tab:CreateButton({
+   Name = "everything: me",
+   Callback = function()
+   
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Mc.no: idk cool guy ",
+   Callback = function()
+   
+   end,
+})
