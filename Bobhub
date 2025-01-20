@@ -289,6 +289,13 @@ game:GetService("Lighting").FogEnd = 100000
 local Section = Tab:CreateSection("Other")
 
 local Button = Tab:CreateButton({
+   Name = "Auto skillcheck (click the skillcheck's button position)",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/Coookie-man/Scripts/main/Auto-skill-check2.txt"))()
+   end,
+})
+
+local Button = Tab:CreateButton({
    Name = "Noclip",
    Callback = function()
 local player = game.Players.LocalPlayer
