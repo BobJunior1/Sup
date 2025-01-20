@@ -91,7 +91,7 @@ end
 
 while true do
     applyESP()
-    wait(10)
+    wait(5)
 end
    end,
 })
@@ -143,7 +143,7 @@ end
 
 while true do
     applyESP()
-    wait(10) -- Wait for 10 seconds before reapplying
+    wait(5) -- Wait for 10 seconds before reapplying
 end
 
 local function createTextLabel(item)
@@ -201,7 +201,65 @@ end
 
 while true do
     applyESP()
-    wait(10) -- Wait for 10 seconds before reapplying
+    wait(5) -- Wait for 10 seconds before reapplying
+end
+
+local function createTextLabel(item)
+    -- Create BillboardGui
+    local billboardGui = Instance.new('BillboardGui')
+    billboardGui.Parent = item
+    billboardGui.Adornee = item
+    billboardGui.Size = UDim2.new(25, 0, 25, 0) -- Increase size even more for bigger text
+    billboardGui.AlwaysOnTop = true
+
+    -- Create TextLabel
+    local textLabel = Instance.new('TextLabel')
+    textLabel.Parent = billboardGui
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Text = item.Name
+    textLabel.TextColor3 = Color3.new(0, 1, 0) -- White text color
+    textLabel.TextStrokeTransparency = 0 -- Outline text for better readability
+    textLabel.TextScaled = true
+    textLabel.Font = Enum.Font.SourceSansBold -- Optional: make the text bold
+end
+
+local function applyESP()
+    local itemNames = {
+        "Chocolate",
+        "Gumball",
+        "Pop",
+        "ProteinBar",
+        "SpeedCandy",
+        "StealthCandy",
+        "SkillCheckCandy",
+        "EnigmaCandy",
+        "Stopwatch",
+        "Instructions",
+        "Bandage",
+        "ChocolateBox",
+        "PopBottle",
+        "JumperCable",
+        "AirHorn",
+        "SmokeBomb",
+        "HealthKit",
+        "Valve",
+        "EjectButton",
+        "ResearchCapsule",
+        "Tape",
+        "Ornament"
+    }
+
+    for i, v in ipairs(game.Workspace:GetDescendants()) do
+        if v:IsA('Model') and v.Parent.Name == 'Items' and table.find(itemNames, v.Name) then
+            createTextLabel(v)
+        end
+    end
+end
+
+while true do
+    applyESP()
+    wait(5) -- Wait for 10 seconds before reapplying
 end
 
    end,
