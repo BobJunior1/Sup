@@ -225,53 +225,6 @@ end
    end,
 })
 
-local Section = Tab:CreateSection("Speed section")
-
-local Slider = Tab:CreateSlider({
-   Name = "Walkspeed",
-   Range = {15, 35},
-   Increment = 10,
-   Suffix = "range",
-   CurrentValue = 15,
-   Flag = "Slider1",
-   Callback = function(Value) local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-
-local desiredWalkSpeed = Value
-
--- Function to set walk speed
-local function setWalkSpeed(speed)
-    humanoid.WalkSpeed = speed
-end
-
--- Set the initial walk speed
-setWalkSpeed(desiredWalkSpeed)
-
--- Listen for changes in the character
-humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-    if humanoid.WalkSpeed ~= desiredWalkSpeed then
-        setWalkSpeed(desiredWalkSpeed)
-    end
-end)
-
--- Listen for when the character respawns
-player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    humanoid = character:WaitForChild("Humanoid")
-    setWalkSpeed(desiredWalkSpeed)
-
-    -- Reconnect the change listener
-    humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-        if humanoid.WalkSpeed ~= desiredWalkSpeed then
-            setWalkSpeed(desiredWalkSpeed)
-        end
-    end)
-end)
-   
- end,
-})
-
 local Section = Tab:CreateSection("Visual")
 
 local Button = Tab:CreateButton({
