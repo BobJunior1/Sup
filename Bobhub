@@ -104,7 +104,7 @@ local function createTextLabel(item)
     local billboardGui = Instance.new('BillboardGui')
     billboardGui.Parent = item
     billboardGui.Adornee = item
-    billboardGui.Size = UDim2.new(20, 0, 20, 0) -- Increase size even more for bigger text
+    billboardGui.Size = UDim2.new(10, 0, 10, 0) -- Increase size even more for bigger text
     billboardGui.AlwaysOnTop = true
 
     -- Create TextLabel
