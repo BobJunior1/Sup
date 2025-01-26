@@ -351,8 +351,13 @@ local Button = Tab:CreateButton({
 })
 
 local Button = Tab:CreateButton({
-   Name = "Mc.no: idk cool guy ",
+   Name = "notification test",
    Callback = function()
-   
+   Rayfield:Notify({
+   Title = "Notification Title",
+   Content = "Notification Content",
+   Duration = 6.5,
+   Image = 4483362458,
+})
    end,
 })
