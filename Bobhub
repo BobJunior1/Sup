@@ -290,7 +290,7 @@ local Button = Tab:CreateButton({
 })
 
 local Button = Tab:CreateButton({
-   Name = "float distract(buggy)",
+   Name = "float distract(may break with noclip)",
    Callback = function()
 -- Reference to the local player
 local player = game.Players.LocalPlayer
