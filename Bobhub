@@ -1,12 +1,12 @@
-print("script loading, it worked")
+print("Script loading..")
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "Bob hub",
+   Name = "B0bby hub (BETA)",
    Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "sup dude",
-   LoadingSubtitle = " cool loading title",
-   Theme = "DarkBlue",
+   LoadingTitle = "B0bby hub",
+   LoadingSubtitle = "Loading..",
+   Theme = "Amethyst",
 
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
@@ -20,22 +20,22 @@ local Window = Rayfield:CreateWindow({
    Discord = {
       Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
       Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+      RememberJoins = false -- Set this to false to make them join the discord every time they load it up
    },
 
-   KeySystem = True, -- Set this to true to use our key system
+   KeySystem = True,
    KeySettings = {
-      Title = "Untitled",
+      Title = "Is bob cool?",
       Subtitle = "Key System",
-      Note = "is bob Cool?", -- Use this to tell the user how to get a key
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"Yes"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+      Note = "Yes", -- Use this to tell the user how to get a key
+      FileName = "B0bbyKey", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = False, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://pastebin.com/raw/QAJ3iqSQ"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
 
-local Tab = Window:CreateTab("Main") -- Title, Image
+local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
 
 local Section = Tab:CreateSection("Esp section")
 
@@ -111,13 +111,13 @@ local function createTextLabel(item)
     -- Create TextLabel
     local textLabel = Instance.new('TextLabel')
     textLabel.Parent = billboardGui
-    textLabel.Size = UDim2.new(1, 0, 1, 0)
-    textLabel.BackgroundTransparency = 1
+    textLabel.Size = 5
+    textLabel.BackgroundTransparency = 0.5
     textLabel.Text = item.Name
     textLabel.TextColor3 = Color3.new(0, 1, 0) -- White text color
     textLabel.TextStrokeTransparency = 0 -- Outline text for better readability
     textLabel.TextScaled = true
-    textLabel.Font = Enum.Font.SourceSansBold -- Optional: make the text bold
+    textLabel.Font = Enum.Font.FredokaOne
 end
 
 local function applyESP()
@@ -191,42 +191,7 @@ end
    end,
 })
 
-
-local Button = Tab:CreateButton({
-   Name = "Player Esp",
-   Callback = function() local function createOutline(player)
-    -- Create Highlight to ensure visibility through walls
-    local Highlight = Instance.new('Highlight')
-    Highlight.Parent = player.Character
-    Highlight.Adornee = player.Character
-    Highlight.OutlineColor = Color3.new(1, 1, 1) -- White outline
-    Highlight.FillColor = Color3.new(0, 0, 1) -- Blue fill to make it stand out more
-    Highlight.FillTransparency = 0.8 -- Adjust transparency as needed
-end
-
-local function applyESP()
-    for i, player in ipairs(game.Players:GetPlayers()) do
-        if player.Character then
-            createOutline(player)
-        end
-    end
-end
-
-game.Players.PlayerAdded:Connect(function(player)
-    player.CharacterAdded:Connect(function()
-        wait(1) -- Wait a moment to ensure character is fully loaded
-        createOutline(player)
-    end)
-end)
-
-while true do
-    applyESP()
-    wait(10) -- Wait for 10 seconds before reapplying
-end
-   end,
-})
-
-local Section = Tab:CreateSection("Visual")
+local Section = Tab:CreateSection("Visual (More Will be added) ")
 
 local Button = Tab:CreateButton({
    Name = "Fullbright",
@@ -237,6 +202,13 @@ game:GetService("Lighting").Ambient = Color3.new(0.75, 0.75, 0.75)
 game:GetService("Lighting").OutdoorAmbient = Color3.new(0.75, 0.75, 0.75)
 game:GetService("Lighting").GlobalShadows = false
 game:GetService("Lighting").FogEnd = 100000
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Become dandy(CLIENT-SIDED)",
+   Callback = function()
+loadstring(game:HttpGet("https://pastefy.app/GyL3OYAW/raw"))()
    end,
 })
 
@@ -255,6 +227,27 @@ local Button = Tab:CreateButton({
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local head = character:WaitForChild("Head")
+local screenGui = Instance.new("ScreenGui")
+local toggleButton = Instance.new("TextButton")
+local uICorner = Instance.new("UICorner") -- Add UICorner for rounded corners
+
+-- Add ScreenGui to the player's PlayerGui
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+-- Set up toggle button properties
+toggleButton.Size = UDim2.new(0, 50, 0, 50) -- Size of the button
+toggleButton.Font = Enum.Font.FredokaOne
+toggleButton.Position = UDim2.new(1, -125, 0, 0) -- Position on the right side of the screen
+toggleButton.Text = "Noclip"
+toggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 139) -- Dark blue color
+toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
+toggleButton.Parent = screenGui
+
+-- Add rounded corners to the button
+uICorner.CornerRadius = UDim.new(0, 15) -- Adjust the radius as needed
+uICorner.Parent = toggleButton
+
+local collisionEnabled = false
 
 -- Function to make a part uncollidable
 local function makeUncollidable(part)
@@ -263,147 +256,158 @@ end
 
 -- Function to handle touches
 local function onTouch(otherPart)
-    -- Ignore if the part is the floor the player is standing on
-    if otherPart:IsDescendantOf(game.Workspace.Terrain) then
-        return
-    end
+    if collisionEnabled then
+        -- Ignore if the part is the floor the player is standing on
+        if otherPart:IsDescendantOf(game.Workspace.Terrain) then
+            return
+        end
 
-    -- Ignore if the part is already in process
-    if not otherPart.CanCollide then
-        return
-    end
+        -- Ignore if the part is already in process
+        if not otherPart.CanCollide then
+            return
+        end
 
-    -- Make the part uncollidable
-    makeUncollidable(otherPart)
+        -- Make the part uncollidable
+        makeUncollidable(otherPart)
+    end
 end
 
--- Connect the touch event to Head
+-- Toggle collision on button click
+toggleButton.MouseButton1Click:Connect(function()
+    collisionEnabled = not collisionEnabled
+    toggleButton.Text = collisionEnabled and "Status: On" or "Status: Off"
+    toggleButton.TextScaled = True
+end)
+
+-- Connect the touch event to head
 head.Touched:Connect(onTouch)
    end,
 })
 
 local Button = Tab:CreateButton({
-   Name = "chat bypass",
+   Name = "chat Trolling(🔑)",
    Callback = function()
    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/loader.lua"))()
    end,
 })
 
 local Button = Tab:CreateButton({
-   Name = "float distract(may break with noclip)",
+   Name = "Float",
    Callback = function()
--- Reference to the local player
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local platformHeightOffset = -3
-local platform -- Reference to the platform
+if game.PlaceId == 16116270224 then
+    -- Create a ScreenGui
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Function to create an invisible platform under the player and make it follow them horizontally
-local function createInvisiblePlatform()
-    platform = Instance.new("Part")
-    platform.Size = Vector3.new(5, 1, 5) -- Size of the platform
-    platform.Anchored = true
-    platform.CanCollide = true
-    platform.Transparency = 1 -- Make the platform invisible
+    -- Create the main frame for the notice box
+    local mainFrame = Instance.new("Frame")
+    mainFrame.AnchorPoint = Vector2.new(0.5, 0.5) -- Set the anchor point to the center
+    mainFrame.Size = UDim2.new(0, 0, 0, 0) -- Start small
+    mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0) -- Center position
+    mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    mainFrame.BorderSizePixel = 0
+    mainFrame.Parent = screenGui
 
-    platform.Parent = workspace
+    local uiCorner = Instance.new("UICorner")
+    uiCorner.CornerRadius = UDim.new(0, 10)
+    uiCorner.Parent = mainFrame
 
-    -- Set the initial position of the platform to where the player is
-    local initialHeight = character.HumanoidRootPart.Position.Y + platformHeightOffset
-    platform.CFrame = CFrame.new(character.HumanoidRootPart.Position.X, initialHeight, character.HumanoidRootPart.Position.Z)
+    -- Tween to grow the main frame
+    local tweenService = game:GetService("TweenService")
+    local tweenInfo = TweenInfo.new(
+        1, -- Time
+        Enum.EasingStyle.Quint, -- EasingStyle
+        Enum.EasingDirection.Out, -- EasingDirection
+        0, -- RepeatCount
+        false, -- Reverses
+        0 -- DelayTime
+    )
 
-    -- Function to update the platform position
-    local function updatePlatformPosition()
-        while true do
-            local currentPosition = character.HumanoidRootPart.Position
-            platform.Anchored = true -- Ensure the platform remains anchored
-            platform.CFrame = CFrame.new(currentPosition.X, platform.Position.Y, currentPosition.Z) -- Follow horizontally
-            wait(0.1) -- Adjust the update speed if needed
+    local goal = {}
+    goal.Size = UDim2.new(0.5, 0, 0.5, 0) -- Target size
+
+    local tween = tweenService:Create(mainFrame, tweenInfo, goal)
+    tween:Play()
+
+    -- Create the text label for the notice text
+    local noticeText = Instance.new("TextLabel")
+    noticeText.Size = UDim2.new(1, -20, 1, -40)
+    noticeText.Position = UDim2.new(0, 10, 0, 10)
+    noticeText.BackgroundTransparency = 1
+    noticeText.Text = "Activation of the 'Float' Script Inside the lobby will trigger the Anti-Cheat, which could result in a ban."
+    noticeText.TextColor3 = Color3.fromRGB(200, 200, 200) -- White text
+    noticeText.TextWrapped = true
+    noticeText.Font = Enum.Font.FredokaOne
+    noticeText.TextSize = 18
+    noticeText.Parent = mainFrame
+
+    -- Create the warning text label
+    local warnText = Instance.new("TextLabel")
+    warnText.Size = UDim2.new(1, -20, 0, 30)
+    warnText.Position = UDim2.new(0, 10, 0, 5)
+    warnText.BackgroundTransparency = 1
+    warnText.Text = "Warning ⚠️"
+    warnText.TextColor3 = Color3.new(1, 1, 1) -- Red text for warning
+    warnText.TextWrapped = true
+    warnText.Font = Enum.Font.FredokaOne
+    warnText.TextSize = 22
+    warnText.Parent = mainFrame
+
+    -- Create the 'Continue' button
+    local continueButton = Instance.new("TextButton")
+    continueButton.Size = UDim2.new(0.5, 0, 0.2, 0)
+    continueButton.Position = UDim2.new(0.25, 0, 0.75, 0)
+    continueButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Blue button
+    continueButton.Text = "I Understand."
+    continueButton.TextColor3 = Color3.new(1, 1, 1) -- White text
+    continueButton.Font = Enum.Font.FredokaOne
+    continueButton.TextSize = 18
+    continueButton.Parent = mainFrame
+
+    local uiCorner3 = Instance.new("UICorner")
+    uiCorner3.CornerRadius = UDim.new(0, 10)
+    uiCorner3.Parent = continueButton
+
+    -- Add functionality to buttons (for example purposes only)
+    continueButton.MouseButton1Click:Connect(function()
+        print("Continue button clicked")
+        
+        -- Fade-out effect
+        for i = 1, 30 do
+            mainFrame.BackgroundTransparency = i/30
+            noticeText.TextTransparency = i/30
+            warnText.TextTransparency = i/30
+            continueButton.BackgroundTransparency = i/30
+            continueButton.TextTransparency = i/30
+            wait(0.033)
+        end
+        screenGui:Destroy()
+    end)
+else 
+    game.StarterGui.KnightmareAntiCheatDebugGUI.Enabled = false
+
+    -- Define the desired hip height
+    local desiredHipHeight = 5
+
+    -- Function to set hip height
+    local function setHipHeight(character, height)
+        if character:FindFirstChild("Humanoid") then
+            character.Humanoid.HipHeight = height
         end
     end
 
-    -- Start updating the platform position
-    spawn(updatePlatformPosition)
+    -- Get the player's character
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+
+    -- Set the hip height for the character
+    setHipHeight(character, desiredHipHeight)
 end
-
--- Create the invisible platform
-createInvisiblePlatform()
-
--- Create the UI buttons
-local screenGui = Instance.new("ScreenGui", player.PlayerGui)
-local upButton = Instance.new("TextButton")
-local downButton = Instance.new("TextButton")
-
--- Configure the Up button
-upButton.Size = UDim2.new(0, 50, 0, 50) -- Make it small
-upButton.Position = UDim2.new(1, -60, 0.2, 0) -- Position on the right side of the screen
-upButton.Text = "▲"
-upButton.Parent = screenGui
-
--- Configure the Down button
-downButton.Size = UDim2.new(0, 50, 0, 50) -- Make it small
-downButton.Position = UDim2.new(1, -60, 0.3, 10) -- Position below the Up button
-downButton.Text = "▼"
-downButton.Parent = screenGui
-
--- Function to handle Up button click
-upButton.MouseButton1Click:Connect(function()
-    platformHeightOffset = platformHeightOffset + 1
-    platform.CFrame = platform.CFrame * CFrame.new(0, 1, 0) -- Move platform up by 1 stud
-    character:SetPrimaryPartCFrame(platform.CFrame + Vector3.new(0, 4, 0)) -- Move player up by 1 stud to stay on the platform
-end)
-
--- Function to handle Down button click
-downButton.MouseButton1Click:Connect(function()
-    platformHeightOffset = platformHeightOffset - 1
-    platform.CFrame = platform.CFrame * CFrame.new(0, -1, 0) -- Move platform down by 1 stud
-    character:SetPrimaryPartCFrame(platform.CFrame + Vector3.new(0, 4, 0)) -- Move player down by 1 stud to stay on the platform
-end)
-
--- Make buttons draggable
-local function makeDraggable(button)
-    local UIS = game:GetService("UserInputService")
-    local dragging
-    local dragInput
-    local dragStart
-    local startPos
-
-    local function update(input)
-        local delta = input.Position - dragStart
-        button.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-
-    button.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = button.Position
-
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
-        end
-    end)
-
-    button.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType.Touch then
-            dragInput = input
-        end
-    end)
-
-    UIS.InputChanged:Connect(function(input)
-        if input == dragInput and dragging then
-            update(input)
-        end
-    end)
-end
-
-makeDraggable(upButton)
-makeDraggable(downButton)
    end,
 })
+local Tab = Window:CreateTab("Animations", 4483362458) -- Title, Image
+
+local Label = Tab:CreateLabel("Working on it.", 4483362458, Color3.fromRGB(255, 255, 255), false)
 
 local Tab = Window:CreateTab("other hubs")
 
