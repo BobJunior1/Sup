@@ -191,7 +191,7 @@ end
    end,
 })
 
-local Section = Tab:CreateSection("Visual (More Will be added) ")
+local Section = Tab:CreateSection("Visual/Client-Sided (More Will be added) ")
 
 local Button = Tab:CreateButton({
    Name = "Fullbright",
@@ -206,7 +206,7 @@ game:GetService("Lighting").FogEnd = 100000
 })
 
 local Button = Tab:CreateButton({
-   Name = "Become dandy(CLIENT-SIDED)",
+   Name = "Become dandy(USE BOXTEN)",
    Callback = function()
 loadstring(game:HttpGet("https://pastefy.app/GyL3OYAW/raw"))()
    end,
