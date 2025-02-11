@@ -292,7 +292,7 @@ local Button = Tab:CreateButton({
 })
 
 local Button = Tab:CreateButton({
-   Name = "Float",
+   Name = "Float(Patched, working on a new one.",
    Callback = function()
 if game.PlaceId == 16116270224 then
     -- Create a ScreenGui
