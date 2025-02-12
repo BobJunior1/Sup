@@ -104,7 +104,7 @@ local uICorner = Instance.new("UICorner") -- Add UICorner for rounded corners
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
 -- Set up toggle button properties
-toggleButton.Size = UDim2.new(0, 70, 0, 70) -- Size of the button
+toggleButton.Size = UDim2.new(0, 50, 0, 50) -- Size of the button
 toggleButton.Font = Enum.Font.FredokaOne
 toggleButton.Position = UDim2.new(1, -125, 0, 0) -- Position on the right side of the screen
 toggleButton.Text = "Noclip"
