@@ -100,14 +100,7 @@ end
 local Button = Tab:CreateButton({
    Name = "esp Items",
    Callback = function()
-
-   end,
-})
-
-local Button = Tab:CreateButton({
-   Name = "esp Generators",
-   Callback = function()
-    local function createTextLabel(item)
+local function createTextLabel(item)
     -- Create BillboardGui
     local billboardGui = Instance.new('BillboardGui')
     billboardGui.Parent = item
@@ -183,6 +176,13 @@ end
    end,
 })
 
+local Button = Tab:CreateButton({
+   Name = "esp Generators",
+   Callback = function()
+    
+   end,
+})
+
 local Section = Tab:CreateSection("Visual/Client-Sided (More Will be added) ")
 
 local Button = Tab:CreateButton({
@@ -227,7 +227,7 @@ local uICorner = Instance.new("UICorner") -- Add UICorner for rounded corners
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
 -- Set up toggle button properties
-toggleButton.Size = UDim2.new(0, 50, 0, 50) -- Size of the button
+toggleButton.Size = UDim2.new(0, 70, 0, 70) -- Size of the button
 toggleButton.Font = Enum.Font.FredokaOne
 toggleButton.Position = UDim2.new(1, -125, 0, 0) -- Position on the right side of the screen
 toggleButton.Text = "Noclip"
