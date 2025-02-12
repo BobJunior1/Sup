@@ -151,7 +151,7 @@ end)
 -- Connect the touch event to head
 head.Touched:Connect(onTouch)
    end,
-}
+})
 
 local Button = Tab:CreateButton({
    Name = "chat Trolling(🔑)",
