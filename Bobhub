@@ -23,7 +23,7 @@ local Window = Rayfield:CreateWindow({
       RememberJoins = false -- Set this to false to make them join the discord every time they load it up
    },
 
-   KeySystem = True,
+   KeySystem = true,
    KeySettings = {
       Title = "Is bob cool?",
       Subtitle = "Key System",
