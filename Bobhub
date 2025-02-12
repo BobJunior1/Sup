@@ -111,7 +111,7 @@ local function createTextLabel(item)
     -- Create TextLabel
     local textLabel = Instance.new('TextLabel')
     textLabel.Parent = billboardGui
-    textLabel.Size = 5
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
     textLabel.BackgroundTransparency = 0.5
     textLabel.Text = item.Name
     textLabel.TextColor3 = Color3.new(0, 1, 0) -- White text color
@@ -292,9 +292,8 @@ local Button = Tab:CreateButton({
 })
 
 local Button = Tab:CreateButton({
-   Name = "Float(Patched, working on a new one.",
+   Name = "Float",
    Callback = function()
-if game.PlaceId == 16116270224 then
     -- Create a ScreenGui
     local screenGui = Instance.new("ScreenGui")
     screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -334,7 +333,7 @@ if game.PlaceId == 16116270224 then
     noticeText.Size = UDim2.new(1, -20, 1, -40)
     noticeText.Position = UDim2.new(0, 10, 0, 10)
     noticeText.BackgroundTransparency = 1
-    noticeText.Text = "Activation of the 'Float' Script Inside the lobby will trigger the Anti-Cheat, which could result in a ban."
+    noticeText.Text = "I am sorry if you find any Bugs within the script."
     noticeText.TextColor3 = Color3.fromRGB(200, 200, 200) -- White text
     noticeText.TextWrapped = true
     noticeText.Font = Enum.Font.FredokaOne
@@ -346,7 +345,7 @@ if game.PlaceId == 16116270224 then
     warnText.Size = UDim2.new(1, -20, 0, 30)
     warnText.Position = UDim2.new(0, 10, 0, 5)
     warnText.BackgroundTransparency = 1
-    warnText.Text = "Warning ⚠️"
+    warnText.Text = "Note 📝"
     warnText.TextColor3 = Color3.new(1, 1, 1) -- Red text for warning
     warnText.TextWrapped = true
     warnText.Font = Enum.Font.FredokaOne
@@ -358,7 +357,7 @@ if game.PlaceId == 16116270224 then
     continueButton.Size = UDim2.new(0.5, 0, 0.2, 0)
     continueButton.Position = UDim2.new(0.25, 0, 0.75, 0)
     continueButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Blue button
-    continueButton.Text = "I Understand."
+    continueButton.Text = "Okay."
     continueButton.TextColor3 = Color3.new(1, 1, 1) -- White text
     continueButton.Font = Enum.Font.FredokaOne
     continueButton.TextSize = 18
@@ -383,26 +382,35 @@ if game.PlaceId == 16116270224 then
         end
         screenGui:Destroy()
     end)
-else 
-    game.StarterGui.KnightmareAntiCheatDebugGUI.Enabled = false
+   local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
-    -- Define the desired hip height
-    local desiredHipHeight = 5
-
-    -- Function to set hip height
-    local function setHipHeight(character, height)
-        if character:FindFirstChild("Humanoid") then
-            character.Humanoid.HipHeight = height
+-- Function to simulate zero gravity
+local function simulateZeroGravity()
+    -- Remove existing BodyMovers if any
+    for _, bodyMover in ipairs(humanoidRootPart:GetChildren()) do
+        if bodyMover:IsA("BodyMover") then
+            bodyMover:Destroy()
         end
     end
 
-    -- Get the player's character
-    local player = game.Players.LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
+    -- Create BodyForce to counteract gravity
+    local bodyForce = Instance.new("BodyForce")
+    bodyForce.Force = Vector3.new(0, game.Workspace.Gravity * humanoidRootPart:GetMass(), 0)
+    bodyForce.Parent = humanoidRootPart
 
-    -- Set the hip height for the character
-    setHipHeight(character, desiredHipHeight)
+    -- Optionally, create BodyVelocity for smooth movement
+    local bodyVelocity = Instance.new("BodyVelocity")
+    bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+    bodyVelocity.MaxForce = Vector3.new(100000, 100000, 100000)
+    bodyVelocity.Parent = humanoidRootPart
+
+    print("bob.")
 end
+
+-- Apply zero gravity
+simulateZeroGravity()
    end,
 })
 local Tab = Window:CreateTab("Animations", 4483362458) -- Title, Image
