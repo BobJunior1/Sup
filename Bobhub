@@ -37,142 +37,19 @@ local Window = Rayfield:CreateWindow({
 
 local Tab = Window:CreateTab("Main", 4483362458) -- Title, Image
 
-local Section = Tab:CreateSection("Esp section")
+local Section = Tab:CreateSection("UNDER MAINTENANCE")
 
 local Button = Tab:CreateButton({
    Name = "Esp twisteds",
-   Callback = function() local function createOutline(item)
-    -- Create Highlight to ensure visibility through walls
-    local Highlight = Instance.new('Highlight')
-    Highlight.Parent = item
-    Highlight.Adornee = item
-    Highlight.OutlineColor = Color3.new(1, 1, 1)
-    Highlight.FillColor = Color3.new(1, 0, 0)
-    Highlight.FillTransparency = 0.5
-end
+   Callback = function() 
 
-local function applyESP()
-    local monsterNames = {
-        "AstroMonster",
-        "BobetteMonster",
-        "BrightneyMonster",
-        "CoalMonster",
-        "ConnieMonster",
-        "CosmoMonster",
-        "DandyMonster",
-        "FinnMonster",
-        "FlutterMonster",
-        "GigiMonster",
-        "GingerMonster",
-        "GlistenMonster",
-        "GoobMonster",
-        "LooeyMonster",
-        "PebbleMonster",
-        "PoppyMonster",
-        "RazzleDazzleMonster",
-        "RodgerMonster",
-        "RudieMonster",
-        "ScrapsMonster",
-        "ShellyMonster",
-        "ShrimpoMonster",
-        "SproutMonster",
-        "TeaganMonster",
-        "TishaMonster",
-        "ToodlesMonster",
-        "VeeMonster",
-        "BoxtenMonster"
-    }
-
-    for i, v in ipairs(game.Workspace:GetDescendants()) do
-        if v:IsA('Model') and v.Parent.Name == 'Monsters' and table.find(monsterNames, v.Name) then
-            createOutline(v)
-        end
-    end
-end
-
-while true do
-    applyESP()
-    wait(5)
-end
    end,
 })
 
 local Button = Tab:CreateButton({
    Name = "esp Items",
    Callback = function()
-local function createTextLabel(item)
-    -- Create BillboardGui
-    local billboardGui = Instance.new('BillboardGui')
-    billboardGui.Parent = item
-    billboardGui.Adornee = item
-    billboardGui.Size = UDim2.new(10, 0, 10, 0) -- Adjust size as needed
-    billboardGui.AlwaysOnTop = true
 
-    -- Create TextLabel
-    local textLabel = Instance.new('TextLabel')
-    textLabel.Parent = billboardGui
-    textLabel.Size = UDim2.new(1, 0, 1, 0) -- Adjust size to fit BillboardGui
-    textLabel.BackgroundTransparency = 0.5
-    textLabel.Text = item.Name
-    textLabel.TextColor3 = Color3.new(0, 1, 0) -- Green text color
-    textLabel.TextStrokeTransparency = 0 -- Outline text for better readability
-    textLabel.TextScaled = true
-    textLabel.Font = Enum.Font.FredokaOne
-end
-
-local function applyESP()
-    local itemNames = {
-        "Chocolate",
-        "Gumball",
-        "Pop",
-        "ProteinBar",
-        "SpeedCandy",
-        "StealthCandy",
-        "SkillCheckCandy",
-        "EnigmaCandy",
-        "Stopwatch",
-        "Instructions",
-        "Bandage",
-        "ChocolateBox",
-        "PopBottle",
-        "JumperCable",
-        "AirHorn",
-        "SmokeBomb",
-        "HealthKit",
-        "Valve",
-        "EjectButton",
-        "ResearchCapsule",
-        "Tape",
-        "Ornament"
-    }
-
-    -- Remove existing BillboardGuis
-    for _, item in ipairs(game.Workspace:GetDescendants()) do
-        if item:IsA('Model') and item.Parent and item.Parent.Name == 'Items' then
-            for _, gui in ipairs(item:GetChildren()) do
-                if gui:IsA('BillboardGui') then
-                    gui:Destroy()
-                end
-            end
-        end
-    end
-
-    -- Create new BillboardGuis
-    for _, item in ipairs(game.Workspace:GetDescendants()) do
-        if item:IsA('Model') and item.Parent and item.Parent.Name == 'Items' and table.find(itemNames, item.Name) then
-            createTextLabel(item)
-        end
-    end
-end
-
--- Initial application of ESP
-applyESP()
-
--- Reapply ESP every 10 seconds
-while true do
-    wait(10)
-    applyESP()
-end
    end,
 })
 
