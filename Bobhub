@@ -163,7 +163,8 @@ local Button = Tab:CreateButton({
 local Button = Tab:CreateButton({
    Name = "Float",
    Callback = function()
-    -- Create a ScreenGui
+-- Create a ScreenGui
+if game.PlaceId == 16116270224 then
     local screenGui = Instance.new("ScreenGui")
     screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
@@ -202,7 +203,7 @@ local Button = Tab:CreateButton({
     noticeText.Size = UDim2.new(1, -20, 1, -40)
     noticeText.Position = UDim2.new(0, 10, 0, 10)
     noticeText.BackgroundTransparency = 1
-    noticeText.Text = "I am sorry if you find any Bugs within the script."
+    noticeText.Text = "Activation of the 'Float' Script inside the Lobby can cause bans."
     noticeText.TextColor3 = Color3.fromRGB(200, 200, 200) -- White text
     noticeText.TextWrapped = true
     noticeText.Font = Enum.Font.FredokaOne
@@ -214,7 +215,7 @@ local Button = Tab:CreateButton({
     warnText.Size = UDim2.new(1, -20, 0, 30)
     warnText.Position = UDim2.new(0, 10, 0, 5)
     warnText.BackgroundTransparency = 1
-    warnText.Text = "Note 📝"
+    warnText.Text = "Warning ⚠️"
     warnText.TextColor3 = Color3.new(1, 1, 1) -- Red text for warning
     warnText.TextWrapped = true
     warnText.Font = Enum.Font.FredokaOne
@@ -226,7 +227,7 @@ local Button = Tab:CreateButton({
     continueButton.Size = UDim2.new(0.5, 0, 0.2, 0)
     continueButton.Position = UDim2.new(0.25, 0, 0.75, 0)
     continueButton.BackgroundColor3 = Color3.new(0, 0, 1) -- Blue button
-    continueButton.Text = "Okay."
+    continueButton.Text = "I Understand."
     continueButton.TextColor3 = Color3.new(1, 1, 1) -- White text
     continueButton.Font = Enum.Font.FredokaOne
     continueButton.TextSize = 18
@@ -251,6 +252,7 @@ local Button = Tab:CreateButton({
         end
         screenGui:Destroy()
     end)
+else
    local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
