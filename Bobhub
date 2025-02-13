@@ -75,213 +75,550 @@ game:GetService("Lighting").FogEnd = 100000
 })
 
 local Button = Tab:CreateButton({
-   Name = "Become dandy(USE BOXTEN)",
+   Name = "Become dandy(USE BOXTEN + In Lobby Only)",
    Callback = function()
 loadstring(game:HttpGet("https://pastefy.app/GyL3OYAW/raw"))()
    end,
 })
 
+local Input = Tab:CreateInput({
+   Name = "Change DisplayName",
+   CurrentValue = "",
+   PlaceholderText = "Input Placeholder",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.DisplayName.Text = (Text)
+   end,
+})
+local Input = Tab:CreateInput({
+   Name = "Change UserName",
+   CurrentValue = "",
+   PlaceholderText = "Input Placeholder",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input2",
+   Callback = function(Text)
+   game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.UserName.Text = (Text)
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Show Owner Tag",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.GroupRank.Visible = (Value)
+   end,
+})
+
+local Input = Tab:CreateInput({
+   Name = "Change Owner Tag",
+   CurrentValue = "",
+   PlaceholderText = "Input Placeholder",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input3",
+   Callback = function(Text)
+game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.GroupRank.Text = (Text)
+game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.GroupRank.TextColor3 = Color3.fromRGB(255, 255, 255)
+game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.GroupRank.Visible = true
+   end,
+})
+
+local ColorPicker = Tab:CreateColorPicker({
+    Name = "NameTag Color Picker",
+    Color = Color3.fromRGB(255,255,255),
+    Flag = "ColorPicker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.UserName.TextColor3 = Value
+    game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.GroupRank.TextColor3 = Value
+    game.Players.LocalPlayer.Character.HumanoidRootPart.NameTag.Frame.UserName.TextColor3 = Value
+    end
+})
+
 local Section = Tab:CreateSection("Other")
 
-local Button = Tab:CreateButton({
-   Name = "Auto skillcheck",
-   Callback = function()
+local Toggle = Tab:CreateToggle({
+   Name = "auto skillcheck",
+   CurrentValue = false,
+   Flag = "Toggle2", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
    local runService = game:GetService("RunService")
-local virtualInputManager = game:GetService("VirtualInputManager")
-local player = game.Players.LocalPlayer
-local ScreenGui = player:WaitForChild("PlayerGui"):FindFirstChild("ScreenGui")
+        local virtualInputManager = game:GetService("VirtualInputManager")
+        local player = game.Players.LocalPlayer
+        local ScreenGui = player:WaitForChild("PlayerGui"):FindFirstChild("ScreenGui")
 
-if not ScreenGui then
-    warn("ScreenGui not found.")
-    return
-end
+        -- Declarar conexiأ³n fuera de la funciأ³n
+        if not _G.connection then _G.connection = nil end
 
-local menu = ScreenGui:FindFirstChild("Menu")
-local skillCheckFrame = menu and menu:FindFirstChild("SkillCheckFrame")
-local marker = skillCheckFrame and skillCheckFrame:FindFirstChild("Marker")
-local goldArea = skillCheckFrame and skillCheckFrame:FindFirstChild("GoldArea")
+        -- Verificaciأ³n inicial
+        if not ScreenGui then
+            warn("ScreenGui not found.")
+            return
+        end
 
-if not (marker and goldArea) then
-    warn("Required elements not found.")
-    return
-end
+        local menu = ScreenGui:FindFirstChild("Menu")
+        local skillCheckFrame = menu and menu:FindFirstChild("SkillCheckFrame")
+        local marker = skillCheckFrame and skillCheckFrame:FindFirstChild("Marker")
+        local goldArea = skillCheckFrame and skillCheckFrame:FindFirstChild("GoldArea")
+        local calibrateButton = menu and menu:FindFirstChild("Calibrate")
 
-local timeElapsed = 0
-local checkInterval = 0.01
+        if not (marker and goldArea and calibrateButton) then
+            warn("Required elements not found.")
+            return
+        end
 
-local function pressSpace()
-    if skillCheckFrame.Visible then
-        virtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-        virtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+        local timeElapsed = 0
+        local checkInterval = 0.01
+
+        -- Funciأ³n para presionar la tecla espacio
+        local function pressSpace()
+            if skillCheckFrame.Visible then
+                virtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+                virtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+            end
+        end
+
+        -- Funciأ³n para comprobar la posiciأ³n de los frames
+        local function checkFramesPosition()
+            local frame1X = marker.AbsolutePosition.X
+            local frame2X = goldArea.AbsolutePosition.X
+            local minRange = frame2X
+            local maxRange = frame2X + 10
+
+            if frame1X >= minRange and frame1X <= maxRange then
+                pressSpace()
+            end
+        end
+
+        -- Si el toggle estأ، activado
+        if Value then
+            Rayfield:Notify({
+   Title = "Heads up!",
+   Content = "AutoSkillCheck Enabled.",
+   Duration = 6.5,
+   Image = 4483362458,
+})
+            -- Asegurarse de que no haya conexiones previas
+            if _G.connection then
+                _G.connection:Disconnect()
+                _G.connection = nil
+            end
+
+            -- Inicia la verificaciأ³n del marcador
+            _G.connection = runService.RenderStepped:Connect(function(deltaTime)
+                timeElapsed = timeElapsed + deltaTime
+                if timeElapsed >= checkInterval then
+                    timeElapsed = 0
+                    checkFramesPosition()
+                end
+            end)
+        else
+            Rayfield:Notify({
+   Title = "Heads up!",
+   Content = "AutoSkillCheck Disabled.",
+   Duration = 6.5,
+   Image = 4483362458,
+})
+            -- Detener la conexiأ³n cuando se apaga el toggle
+            if _G.connection then
+                _G.connection:Disconnect()
+                _G.connection = nil
+            end
+        end
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Main Monsters Notifier",
+   CurrentValue = false,
+   Flag = "Toggle3", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+local toggleEnabled = Value -- Obtiene el estado del toggle
+print("Toggle changed:", toggleEnabled)
+
+if toggleEnabled then
+    local notifiedMonsters = {} -- Tabla para rastrear monstruos ya notificados
+
+    -- Función para enviar una notificación personalizada
+    local function sendNotification(monsterName)
+        Rayfield:Notify({
+   Title = "Alert!",
+   Content = "Main/Lethal Monsters Detected, Be Prepared.",
+   Duration = 6.5,
+   Image = 112318705260205,
+})
     end
-end
 
-local function checkFramesPosition()
-    local frame1X = marker.AbsolutePosition.X
-    local frame2X = goldArea.AbsolutePosition.X
-    local minRange = frame2X
-    local maxRange = frame2X + 10
+    -- Lista de nombres de monstruos a buscar
+    local targetMonsters = {
+        "DandyMonster",
+        "VeeMonster",
+        "SproutMonster",
+        "ShellyMonster",
+        "PebbleMonster",
+        "AstroMonster",
+        "BobetteMonster",
+   }
 
-    if frame1X >= minRange and frame1X <= maxRange then
-        pressSpace()
+    -- Busca la carpeta CurrentRoom en Workspace
+    local currentRoom = game.Workspace:FindFirstChild("CurrentRoom")
+    if currentRoom then
+        print("mNotifier activated.")
+        while toggleEnabled do
+            for _, model in ipairs(currentRoom:GetChildren()) do
+                if model:IsA("Model") then
+                    -- Busca la carpeta Monsters dentro del modelo
+                    local monstersFolder = model:FindFirstChild("Monsters")
+                    if monstersFolder then
+                        -- Revisa los monstruos dentro de Monsters
+                        for _, monster in ipairs(monstersFolder:GetChildren()) do
+                            if table.find(targetMonsters, monster.Name) and not notifiedMonsters[monster.Name] then
+                                sendNotification(monster.Name) -- Envía la notificación personalizada
+                                notifiedMonsters[monster.Name] = true -- Marca el monstruo como notificado
+                            end
+                        end
+                    end
+                end
+            end
+
+            -- Limpia los monstruos que ya no están en Monsters
+            for monsterName, _ in pairs(notifiedMonsters) do
+                local stillExists = false
+                for _, model in ipairs(currentRoom:GetChildren()) do
+                    local monstersFolder = model:FindFirstChild("Monsters")
+                    if monstersFolder and monstersFolder:FindFirstChild(monsterName) then
+                        stillExists = true
+                        break
+                    end
+                end
+                if not stillExists then
+                    notifiedMonsters[monsterName] = nil -- Elimina monstruos que ya no están
+                end
+            end
+
+            task.wait(5) -- Verifica nuevamente cada 5 segundos
+        end
+    else
+        warn("didn't find da CurrentRoom folder in Workspace.")
     end
+else
+    print("mNotifier Turned off.")
 end
-
-print("DIDDY MODE Activated.")
-
-runService.RenderStepped:Connect(function(deltaTime)
-    timeElapsed = timeElapsed + deltaTime
-    if timeElapsed >= checkInterval then
-        timeElapsed = 0
-        checkFramesPosition()
-    end
-end)
    end,
 })
 
 local Button = Tab:CreateButton({
-   Name = "Noclip",
+   Name = "Noclip(GUI Toggle)",
    Callback = function()
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local head = character:WaitForChild("Head")
 local screenGui = Instance.new("ScreenGui")
 local toggleButton = Instance.new("TextButton")
-local uICorner = Instance.new("UICorner") -- Add UICorner for rounded corners
+local uICorner = Instance.new("UICorner")
 
 -- Add ScreenGui to the player's PlayerGui
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
 -- Set up toggle button properties
-toggleButton.Size = UDim2.new(0, 50, 0, 50) -- Size of the button
+toggleButton.Size = UDim2.new(0, 50, 0, 50)
 toggleButton.Font = Enum.Font.FredokaOne
-toggleButton.Position = UDim2.new(1, -125, 0, 0) -- Position on the right side of the screen
+toggleButton.Position = UDim2.new(1, -125, 0, 0)
 toggleButton.Text = "Noclip"
-toggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 139) -- Dark blue color
-toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
+toggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 139)
+toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 toggleButton.Parent = screenGui
 
 -- Add rounded corners to the button
-uICorner.CornerRadius = UDim.new(0, 15) -- Adjust the radius as needed
+uICorner.CornerRadius = UDim.new(0, 15)
 uICorner.Parent = toggleButton
 
 local collisionEnabled = false
 
--- Function to make a part uncollidable
 local function makeUncollidable(part)
     part.CanCollide = false
 end
 
--- Function to handle touches
 local function onTouch(otherPart)
     if collisionEnabled then
-        -- Ignore if the part is the floor the player is standing on
         if otherPart:IsDescendantOf(game.Workspace.Terrain) then
             return
         end
-
-        -- Ignore if the part is already in process
         if not otherPart.CanCollide then
             return
         end
-
-        -- Make the part uncollidable
         makeUncollidable(otherPart)
     end
 end
 
--- Toggle collision on button click
 toggleButton.MouseButton1Click:Connect(function()
     collisionEnabled = not collisionEnabled
     toggleButton.Text = collisionEnabled and "Status: On" or "Status: Off"
-    toggleButton.TextScaled = True
+    toggleButton.TextScaled = true
 end)
 
--- Connect the touch event to head
-head.Touched:Connect(onTouch)
+local function attachTouchEvent()
+    character = player.Character or player.CharacterAdded:Wait()
+    head = character:WaitForChild("Head")
+    head.Touched:Connect(onTouch)
+end
+
+attachTouchEvent()
+player.CharacterAdded:Connect(attachTouchEvent)
    end,
 })
 
-local Button = Tab:CreateButton({
-   Name = "chat Trolling(🔑)",
-   Callback = function()
-   loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Synergy-Networks/products/main/BetterBypasser/loader.lua"))()
-   end,
-})
-
-local Button = Tab:CreateButton({
-   Name = "Float(can't be turned off)",
-   Callback = function()
-local player = game.Players.LocalPlayer
+local Toggle = Tab:CreateToggle({
+   Name = "Noclip",
+   CurrentValue = false,
+   Flag = "Toggle4", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
+local head = character:WaitForChild("Head")
 
--- Variable to store the desired float height
-_G.DesiredFloatHeight = _G.DesiredFloatHeight or 6.4 -- Default to 6 if not already set
+local collisionEnabled = Value
 
--- Function to ensure zero gravity
-local function ensureZeroGravity()
-    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-    if humanoidRootPart then
-        -- Remove any existing BodyForce
-        local existingBodyForce = humanoidRootPart:FindFirstChildOfClass("BodyForce")
-        if existingBodyForce then
-            existingBodyForce:Destroy()
+local function makeUncollidable(part)
+    part.CanCollide = false
+end
+
+local function onTouch(otherPart)
+    if collisionEnabled then
+        if otherPart:IsDescendantOf(game.Workspace.Terrain) then
+            return
         end
-
-        -- Set player's gravity to zero
-        local bodyForce = Instance.new("BodyForce")
-        bodyForce.Force = Vector3.new(0, workspace.Gravity * humanoidRootPart.AssemblyMass, 0)
-        bodyForce.Parent = humanoidRootPart
+        if not otherPart.CanCollide then
+            return
+        end
+        makeUncollidable(otherPart)
     end
 end
 
--- Function to update the player's position instantly
-local function updatePlayerPositionInstant()
-    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-    if humanoidRootPart then
-        -- Perform a raycast to detect the ground below the player
-        local rayOrigin = humanoidRootPart.Position
-        local rayDirection = Vector3.new(0, -100, 0) -- Long enough to ensure detection
-        local raycastParams = RaycastParams.new()
-        raycastParams.FilterDescendantsInstances = {character}
-        raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-        local raycastResult = workspace:Raycast(rayOrigin, rayDirection, raycastParams)
+local function toggleCollision()
+    collisionEnabled = not collisionEnabled
+    print("Collision is now: " .. (collisionEnabled and "Enabled" or "Disabled"))
+end
 
-        if raycastResult then
-            -- Ensure the detected part is collideable
-            if raycastResult.Instance.CanCollide then
+local function attachTouchEvent()
+    character = player.Character or player.CharacterAdded:Wait()
+    head = character:WaitForChild("Head")
+    head.Touched:Connect(onTouch)
+end
+
+-- Toggle collision with a key press (for example, the "T" key)
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.T then
+        toggleCollision()
+    end
+end)
+
+attachTouchEvent()
+player.CharacterAdded:Connect(attachTouchEvent)
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+    Name = "Toggle Example",
+    CurrentValue = false,
+    Flag = "Toggle5",
+    Callback = function(Value)
+        local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create the main frame for the notice box
+local mainFrame = Instance.new("Frame")
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5) -- Set the anchor point to the center
+mainFrame.Size = UDim2.new(0, 0, 0, 0) -- Start small
+mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0) -- Center position
+mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = screenGui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 10)
+uiCorner.Parent = mainFrame
+
+-- Tween to grow the main frame
+local tweenService = game:GetService("TweenService")
+local tweenInfo = TweenInfo.new(
+    1, -- Time
+    Enum.EasingStyle.Quint, -- EasingStyle
+    Enum.EasingDirection.Out, -- EasingDirection
+    0, -- RepeatCount
+    false, -- Reverses
+    0 -- DelayTime
+)
+
+local goal = {}
+goal.Size = UDim2.new(0.5, 0, 0.5, 0) -- Target size
+
+local tween = tweenService:Create(mainFrame, tweenInfo, goal)
+tween:Play()
+
+-- Create the text label for the notice text
+local noticeText = Instance.new("TextLabel")
+noticeText.Size = UDim2.new(1, -20, 1, -40)
+noticeText.Position = UDim2.new(0, 10, 0, 10)
+noticeText.BackgroundTransparency = 1
+noticeText.Text = "Activation of The 'Float' Script Can't be Turned off Only if Reset, Do you still wish to Continue?"
+noticeText.TextColor3 = Color3.fromRGB(200, 200, 200) -- White text
+noticeText.TextWrapped = true
+noticeText.Font = Enum.Font.FredokaOne
+noticeText.TextSize = 18
+noticeText.Parent = mainFrame
+
+-- Create the warning text label
+local warnText = Instance.new("TextLabel")
+warnText.Size = UDim2.new(1, -20, 0, 30)
+warnText.Position = UDim2.new(0, 10, 0, 5)
+warnText.BackgroundTransparency = 1
+warnText.Text = "Warning ⚠️"
+warnText.TextColor3 = Color3.fromRGB(255, 0, 0) -- Red text for warning
+warnText.TextWrapped = true
+warnText.Font = Enum.Font.FredokaOne
+warnText.TextSize = 22
+warnText.Parent = mainFrame
+
+-- Create the 'Ok' button
+local continueButton = Instance.new("TextButton")
+continueButton.Size = UDim2.new(0.4, 0, 0.2, 0)
+continueButton.Position = UDim2.new(0.1, 0, 0.75, 0)
+continueButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255) -- Blue button
+continueButton.Text = "Continue"
+continueButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+continueButton.Font = Enum.Font.FredokaOne
+continueButton.TextSize = 18
+continueButton.Parent = mainFrame
+
+local uiCorner3 = Instance.new("UICorner")
+uiCorner3.CornerRadius = UDim.new(0, 10)
+uiCorner3.Parent = continueButton
+
+-- Create the 'Cancel' button
+local cancelButton = Instance.new("TextButton")
+cancelButton.Size = UDim2.new(0.4, 0, 0.2, 0)
+cancelButton.Position = UDim2.new(0.5, 0, 0.75, 0)
+cancelButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red button
+cancelButton.Text = "Cancel"
+cancelButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+cancelButton.Font = Enum.Font.FredokaOne
+cancelButton.TextSize = 18
+cancelButton.Parent = mainFrame
+
+local uiCorner4 = Instance.new("UICorner")
+uiCorner4.CornerRadius = UDim.new(0, 10)
+uiCorner4.Parent = cancelButton
+
+-- Add functionality to the 'Ok' button
+continueButton.MouseButton1Click:Connect(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+
+    local desiredFloatHeight = 6.4
+    local floatEnabled = true
+    local renderSteppedConnection
+
+    local function ensureZeroGravity()
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            -- Remove any existing BodyForce
+            for _, child in ipairs(humanoidRootPart:GetChildren()) do
+                if child:IsA("BodyForce") then
+                    child:Destroy()
+                end
+            end
+
+            -- Set player's gravity to zero
+            local bodyForce = Instance.new("BodyForce")
+            bodyForce.Force = Vector3.new(0, workspace.Gravity * humanoidRootPart.AssemblyMass, 0)
+            bodyForce.Parent = humanoidRootPart
+        end
+    end
+
+    local function updatePlayerPositionInstant()
+        if not floatEnabled then return end
+
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            local rayOrigin = humanoidRootPart.Position
+            local rayDirection = Vector3.new(0, -100, 0)
+            local raycastResult = workspace:Raycast(rayOrigin, rayDirection)
+            if raycastResult and raycastResult.Instance.CanCollide then
                 local groundY = raycastResult.Position.Y
-                local desiredY = groundY + _G.DesiredFloatHeight -- Use the desired float height
-
-                -- Set the new position immediately
+                local desiredY = groundY + desiredFloatHeight
                 humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position.X, desiredY, humanoidRootPart.Position.Z)
             end
         end
     end
-end
 
--- Variable to store the connection to RenderStepped
-local renderSteppedConnection
-
--- Function to ensure zero gravity and connect RenderStepped
-local function initializeZeroGravity()
-    ensureZeroGravity()
-    if renderSteppedConnection then
-        renderSteppedConnection:Disconnect()
+    local function initializeZeroGravity()
+        ensureZeroGravity()
+        renderSteppedConnection = game:GetService("RunService").RenderStepped:Connect(updatePlayerPositionInstant)
     end
-    renderSteppedConnection = game:GetService("RunService").RenderStepped:Connect(updatePlayerPositionInstant)
-end
 
--- Ensure the script works when the character respawns
-player.CharacterAdded:Connect(function(newCharacter)
-    character = newCharacter
-    initializeZeroGravity()
+    if floatEnabled then
+        initializeZeroGravity()
+        print("Floating is now: Enabled")
+    else
+        if renderSteppedConnection then
+            renderSteppedConnection:Disconnect()
+            renderSteppedConnection = nil
+        end
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            -- Ensure all BodyForce instances are removed
+            for _, child in ipairs(humanoidRootPart:GetChildren()) do
+                if child:IsA("BodyForce") then
+                    child:Destroy()
+                end
+            end
+            -- Reset the player's position to the ground level
+            local rayOrigin = humanoidRootPart.Position
+            local rayDirection = Vector3.new(0, -100, 0)
+            local raycastResult = workspace:Raycast(rayOrigin, rayDirection)
+            if raycastResult and raycastResult.Instance.CanCollide then
+                local groundY = raycastResult.Position.Y
+                humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position.X, groundY, humanoidRootPart.Position.Z)
+            end
+        end
+        print("Floating is now: Disabled")
+    end
+
+    -- Fade-out effect
+    for i = 1, 30 do
+        mainFrame.BackgroundTransparency = i/30
+        noticeText.TextTransparency = i/30
+        warnText.TextTransparency = i/30
+        continueButton.BackgroundTransparency = i/30
+        continueButton.TextTransparency = i/30
+        cancelButton.BackgroundTransparency = i/30
+        cancelButton.TextTransparency = i/30
+        wait(0.033)
+    end
+    screenGui:Destroy()
 end)
 
--- Initialize with the desired float height
-initializeZeroGravity()
-   end,
+-- Add functionality to the 'Cancel' button
+cancelButton.MouseButton1Click:Connect(function()
+    print("Cancel button clicked")
+
+    -- Fade-out effect
+    for i = 1, 30 do
+        mainFrame.BackgroundTransparency = i/30
+        noticeText.TextTransparency = i/30
+        warnText.TextTransparency = i/30
+        continueButton.BackgroundTransparency = i/30
+        continueButton.TextTransparency = i/30
+        cancelButton.BackgroundTransparency = i/30
+        cancelButton.TextTransparency = i/30
+        wait(0.033)
+    end
+    screenGui:Destroy()
+end)
+    end,
 })
+
 local Tab = Window:CreateTab("Animations", 4483362458) -- Title, Image
 
 local Label = Tab:CreateLabel("Working on it.", 4483362458, Color3.fromRGB(255, 255, 255), false)
@@ -310,7 +647,7 @@ local Button = Tab:CreateButton({
 })
 
 local Button = Tab:CreateButton({
-   Name = " Noxious hub",
+   Name = "Noxious hub",
    Callback = function()
    loadstring(game:HttpGet("https://pastebin.com/raw/y8eKgLSs"))()
    end,
@@ -330,32 +667,6 @@ local Button = Tab:CreateButton({
    end,
 })
 
-local Button = Tab:CreateButton({
-   Name = "G0bbyD0llan hub",
-   Callback = function()
-loadstring(game:HttpGet("https://pastebin.com/raw/QQt4pVtu"))()
-   end,
-})
-
 local Section = Tab:CreateSection("End")
 
 local Tab = Window:CreateTab("Credits")
-
-local Button = Tab:CreateButton({
-   Name = "everything: me",
-   Callback = function()
-   
-   end,
-})
-
-local Button = Tab:CreateButton({
-   Name = "notification test",
-   Callback = function()
-   Rayfield:Notify({
-   Title = "Notification Title",
-   Content = "Notification Content",
-   Duration = 6.5,
-   Image = 4483362458,
-})
-   end,
-})
