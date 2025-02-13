@@ -371,198 +371,170 @@ player.CharacterAdded:Connect(attachTouchEvent)
 local Button = Tab:CreateButton({
    Name = "float",
    Callback = function()
-        local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+if game.PlaceId == 16116270224 then
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Create the main frame for the notice box
-local mainFrame = Instance.new("Frame")
-mainFrame.AnchorPoint = Vector2.new(0.5, 0.5) -- Set the anchor point to the center
-mainFrame.Size = UDim2.new(0, 0, 0, 0) -- Start small
-mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0) -- Center position
-mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-mainFrame.BorderSizePixel = 0
-mainFrame.Parent = screenGui
+    -- Create the main frame for the notice box
+    local mainFrame = Instance.new("Frame")
+    mainFrame.AnchorPoint = Vector2.new(0.5, 0.5) -- Set the anchor point to the center
+    mainFrame.Size = UDim2.new(0, 0, 0, 0) -- Start small
+    mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0) -- Center position
+    mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    mainFrame.BorderSizePixel = 0
+    mainFrame.Parent = screenGui
 
-local uiCorner = Instance.new("UICorner")
-uiCorner.CornerRadius = UDim.new(0, 10)
-uiCorner.Parent = mainFrame
+    local uiCorner = Instance.new("UICorner")
+    uiCorner.CornerRadius = UDim.new(0, 10)
+    uiCorner.Parent = mainFrame
 
--- Tween to grow the main frame
-local tweenService = game:GetService("TweenService")
-local tweenInfo = TweenInfo.new(
-    1, -- Time
-    Enum.EasingStyle.Quint, -- EasingStyle
-    Enum.EasingDirection.Out, -- EasingDirection
-    0, -- RepeatCount
-    false, -- Reverses
-    0 -- DelayTime
-)
+    -- Tween to grow the main frame
+    local tweenService = game:GetService("TweenService")
+    local tweenInfo = TweenInfo.new(
+        1, -- Time
+        Enum.EasingStyle.Quint, -- EasingStyle
+        Enum.EasingDirection.Out, -- EasingDirection
+        0, -- RepeatCount
+        false, -- Reverses
+        0 -- DelayTime
+    )
 
-local goal = {}
-goal.Size = UDim2.new(0.5, 0, 0.5, 0) -- Target size
+    local goal = {}
+    goal.Size = UDim2.new(0.5, 0, 0.5, 0) -- Target size
 
-local tween = tweenService:Create(mainFrame, tweenInfo, goal)
-tween:Play()
+    local tween = tweenService:Create(mainFrame, tweenInfo, goal)
+    tween:Play()
 
--- Create the text label for the notice text
-local noticeText = Instance.new("TextLabel")
-noticeText.Size = UDim2.new(1, -20, 1, -40)
-noticeText.Position = UDim2.new(0, 10, 0, 10)
-noticeText.BackgroundTransparency = 1
-noticeText.Text = "Activation of The 'Float' Script Can't be Turned off Only if Reset, Do you still wish to Continue?"
-noticeText.TextColor3 = Color3.fromRGB(200, 200, 200) -- White text
-noticeText.TextWrapped = true
-noticeText.Font = Enum.Font.FredokaOne
-noticeText.TextSize = 18
-noticeText.Parent = mainFrame
+    -- Create the text label for the notice text
+    local noticeText = Instance.new("TextLabel")
+    noticeText.Size = UDim2.new(1, -20, 1, -40)
+    noticeText.Position = UDim2.new(0, 10, 0, 10)
+    noticeText.BackgroundTransparency = 1
+    noticeText.Text = "Activation of The 'Float' Script Can't be Turned off Only if Reset, Do you still wish to Continue?"
+    noticeText.TextColor3 = Color3.fromRGB(200, 200, 200) -- White text
+    noticeText.TextWrapped = true
+    noticeText.Font = Enum.Font.FredokaOne
+    noticeText.TextSize = 18
+    noticeText.Parent = mainFrame
 
--- Create the warning text label
-local warnText = Instance.new("TextLabel")
-warnText.Size = UDim2.new(1, -20, 0, 30)
-warnText.Position = UDim2.new(0, 10, 0, 5)
-warnText.BackgroundTransparency = 1
-warnText.Text = "Warning ⚠️"
-warnText.TextColor3 = Color3.fromRGB(255, 0, 0) -- Red text for warning
-warnText.TextWrapped = true
-warnText.Font = Enum.Font.FredokaOne
-warnText.TextSize = 22
-warnText.Parent = mainFrame
+    -- Create the warning text label
+    local warnText = Instance.new("TextLabel")
+    warnText.Size = UDim2.new(1, -20, 0, 30)
+    warnText.Position = UDim2.new(0, 10, 0, 5)
+    warnText.BackgroundTransparency = 1
+    warnText.Text = "Warning ⚠️"
+    warnText.TextColor3 = Color3.fromRGB(255, 0, 0) -- Red text for warning
+    warnText.TextWrapped = true
+    warnText.Font = Enum.Font.FredokaOne
+    warnText.TextSize = 22
+    warnText.Parent = mainFrame
 
--- Create the 'Ok' button
-local continueButton = Instance.new("TextButton")
-continueButton.Size = UDim2.new(0.4, 0, 0.2, 0)
-continueButton.Position = UDim2.new(0.1, 0, 0.75, 0)
-continueButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255) -- Blue button
-continueButton.Text = "Continue"
-continueButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
-continueButton.Font = Enum.Font.FredokaOne
-continueButton.TextSize = 18
-continueButton.Parent = mainFrame
+    -- Create the 'Ok' button
+    local continueButton = Instance.new("TextButton")
+    continueButton.Size = UDim2.new(0.4, 0, 0.2, 0)
+    continueButton.Position = UDim2.new(0.3, 0, 0.75, 0)
+    continueButton.BackgroundColor3 = Color3.fromRGB(0, 0, 255) -- Blue button
+    continueButton.Text = "Continue"
+    continueButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
+    continueButton.Font = Enum.Font.FredokaOne
+    continueButton.TextSize = 18
+    continueButton.Parent = mainFrame
 
-local uiCorner3 = Instance.new("UICorner")
-uiCorner3.CornerRadius = UDim.new(0, 10)
-uiCorner3.Parent = continueButton
+    local uiCorner3 = Instance.new("UICorner")
+    uiCorner3.CornerRadius = UDim.new(0, 10)
+    uiCorner3.Parent = continueButton
+    -- Add functionality to the 'Ok' button
+    continueButton.MouseButton1Click:Connect(function()
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
 
--- Create the 'Cancel' button
-local cancelButton = Instance.new("TextButton")
-cancelButton.Size = UDim2.new(0.4, 0, 0.2, 0)
-cancelButton.Position = UDim2.new(0.5, 0, 0.75, 0)
-cancelButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red button
-cancelButton.Text = "Cancel"
-cancelButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text
-cancelButton.Font = Enum.Font.FredokaOne
-cancelButton.TextSize = 18
-cancelButton.Parent = mainFrame
+        -- Fade-out effect
+        for i = 1, 30 do
+            mainFrame.BackgroundTransparency = i/30
+            noticeText.TextTransparency = i/30
+            warnText.TextTransparency = i/30
+            continueButton.BackgroundTransparency = i/30
+            continueButton.TextTransparency = i/30
+            wait(0.033)
+        end
+        screenGui:Destroy()
+    end)
+else
+    local getinfo = getinfo or debug.getinfo
+    local DEBUG = false
+    local Hooked = {}
 
-local uiCorner4 = Instance.new("UICorner")
-uiCorner4.CornerRadius = UDim.new(0, 10)
-uiCorner4.Parent = cancelButton
+    local Detected, Kill
 
--- Add functionality to the 'Ok' button
-continueButton.MouseButton1Click:Connect(function()
+    setthreadidentity(2)
+
+    for i, v in getgc(true) do
+        if typeof(v) == "table" then
+            local DetectFunc = rawget(v, "Detected")
+            local KillFunc = rawget(v, "Kill")
+        
+            if typeof(DetectFunc) == "function" and not Detected then
+                Detected = DetectFunc
+                
+                local Old; Old = hookfunction(Detected, function(Action, Info, NoCrash)
+                    if Action ~= "_" then
+                        if DEBUG then
+                            warn("Adonis AntiCheat flagged\nMethod: " .. Action .. "\nInfo: " .. Info)
+                        end
+                    end
+                    
+                    return true
+                end)
+
+                table.insert(Hooked, Detected)
+            end
+
+            if rawget(v, "Variables") and rawget(v, "Process") and typeof(KillFunc) == "function" and not Kill then
+                Kill = KillFunc
+                local Old; Old = hookfunction(Kill, function(Info)
+                    if DEBUG then
+                        warn("Adonis AntiCheat tried to kill (fallback): " .. Info)
+                    end
+                end)
+
+                table.insert(Hooked, Kill)
+            end
+        end
+    end
+
+    local Old; Old = hookfunction(getrenv().debug.info, newcclosure(function(...)
+        local LevelOrFunc, Info = ...
+
+        if Detected and LevelOrFunc == Detected then
+            if DEBUG then
+                warn("zins | adonis bypassed")
+            end
+
+            return coroutine.yield(coroutine.running())
+        end
+        
+        return Old(...)
+    end))
+    -- setthreadidentity(9)
+    setthreadidentity(7)
+
+    -- Define the desired hip height
+    local desiredHipHeight = 5
+
+    -- Function to set hip height
+    local function setHipHeight(character, height)
+        if character:FindFirstChild("Humanoid") then
+            character.Humanoid.HipHeight = height
+        end
+    end
+
+    -- Get the player's character
     local player = game.Players.LocalPlayer
     local character = player.Character or player.CharacterAdded:Wait()
 
-    local desiredFloatHeight = 6.4
-    local floatEnabled = true
-    local renderSteppedConnection
-
-    local function ensureZeroGravity()
-        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-        if humanoidRootPart then
-            -- Remove any existing BodyForce
-            for _, child in ipairs(humanoidRootPart:GetChildren()) do
-                if child:IsA("BodyForce") then
-                    child:Destroy()
-                end
-            end
-
-            -- Set player's gravity to zero
-            local bodyForce = Instance.new("BodyForce")
-            bodyForce.Force = Vector3.new(0, workspace.Gravity * humanoidRootPart.AssemblyMass, 0)
-            bodyForce.Parent = humanoidRootPart
-        end
-    end
-
-    local function updatePlayerPositionInstant()
-        if not floatEnabled then return end
-
-        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-        if humanoidRootPart then
-            local rayOrigin = humanoidRootPart.Position
-            local rayDirection = Vector3.new(0, -100, 0)
-            local raycastResult = workspace:Raycast(rayOrigin, rayDirection)
-            if raycastResult and raycastResult.Instance.CanCollide then
-                local groundY = raycastResult.Position.Y
-                local desiredY = groundY + desiredFloatHeight
-                humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position.X, desiredY, humanoidRootPart.Position.Z)
-            end
-        end
-    end
-
-    local function initializeZeroGravity()
-        ensureZeroGravity()
-        renderSteppedConnection = game:GetService("RunService").RenderStepped:Connect(updatePlayerPositionInstant)
-    end
-
-    if floatEnabled then
-        initializeZeroGravity()
-        print("Floating is now: Enabled")
-    else
-        if renderSteppedConnection then
-            renderSteppedConnection:Disconnect()
-            renderSteppedConnection = nil
-        end
-        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-        if humanoidRootPart then
-            -- Ensure all BodyForce instances are removed
-            for _, child in ipairs(humanoidRootPart:GetChildren()) do
-                if child:IsA("BodyForce") then
-                    child:Destroy()
-                end
-            end
-            -- Reset the player's position to the ground level
-            local rayOrigin = humanoidRootPart.Position
-            local rayDirection = Vector3.new(0, -100, 0)
-            local raycastResult = workspace:Raycast(rayOrigin, rayDirection)
-            if raycastResult and raycastResult.Instance.CanCollide then
-                local groundY = raycastResult.Position.Y
-                humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position.X, groundY, humanoidRootPart.Position.Z)
-            end
-        end
-        print("Floating is now: Disabled")
-    end
-
-    -- Fade-out effect
-    for i = 1, 30 do
-        mainFrame.BackgroundTransparency = i/30
-        noticeText.TextTransparency = i/30
-        warnText.TextTransparency = i/30
-        continueButton.BackgroundTransparency = i/30
-        continueButton.TextTransparency = i/30
-        cancelButton.BackgroundTransparency = i/30
-        cancelButton.TextTransparency = i/30
-        wait(0.033)
-    end
-    screenGui:Destroy()
-end)
--- Add functionality to the 'Cancel' button
-cancelButton.MouseButton1Click:Connect(function()
-    print("Cancel button clicked")
-
-    -- Fade-out effect
-    for i = 1, 30 do
-        mainFrame.BackgroundTransparency = i/30
-        noticeText.TextTransparency = i/30
-        warnText.TextTransparency = i/30
-        continueButton.BackgroundTransparency = i/30
-        continueButton.TextTransparency = i/30
-        cancelButton.BackgroundTransparency = i/30
-        cancelButton.TextTransparency = i/30
-        wait(0.033)
-    end
-    screenGui:Destroy()
-end)
+    -- Set the hip height for the character
+    setHipHeight(character, desiredHipHeight)
+end
     end,
 })
 
