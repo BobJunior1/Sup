@@ -84,9 +84,58 @@ loadstring(game:HttpGet("https://pastefy.app/GyL3OYAW/raw"))()
 local Section = Tab:CreateSection("Other")
 
 local Button = Tab:CreateButton({
-   Name = "Auto skillcheck (click the skillcheck's button position)",
+   Name = "Auto skillcheck",
    Callback = function()
-   loadstring(game:HttpGet("https://raw.githubusercontent.com/Coookie-man/Scripts/main/Auto-skill-check2.txt"))()
+   local runService = game:GetService("RunService")
+local virtualInputManager = game:GetService("VirtualInputManager")
+local player = game.Players.LocalPlayer
+local ScreenGui = player:WaitForChild("PlayerGui"):FindFirstChild("ScreenGui")
+
+if not ScreenGui then
+    warn("ScreenGui not found.")
+    return
+end
+
+local menu = ScreenGui:FindFirstChild("Menu")
+local skillCheckFrame = menu and menu:FindFirstChild("SkillCheckFrame")
+local marker = skillCheckFrame and skillCheckFrame:FindFirstChild("Marker")
+local goldArea = skillCheckFrame and skillCheckFrame:FindFirstChild("GoldArea")
+
+if not (marker and goldArea) then
+    warn("Required elements not found.")
+    return
+end
+
+local timeElapsed = 0
+local checkInterval = 0.01
+
+local function pressSpace()
+    if skillCheckFrame.Visible then
+        virtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
+        virtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
+    end
+end
+
+local function checkFramesPosition()
+    local frame1X = marker.AbsolutePosition.X
+    local frame2X = goldArea.AbsolutePosition.X
+    local minRange = frame2X
+    local maxRange = frame2X + 10
+
+    if frame1X >= minRange and frame1X <= maxRange then
+        pressSpace()
+    end
+end
+
+print("DIDDY MODE Activated.")
+
+runService.RenderStepped:Connect(function(deltaTime)
+    timeElapsed = timeElapsed + deltaTime
+    if timeElapsed >= checkInterval then
+        timeElapsed = 0
+        checkFramesPosition()
+    end
+end)
    end,
 })
 
