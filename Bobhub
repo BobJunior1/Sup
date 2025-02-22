@@ -13,5 +13,3 @@ textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White color
 textLabel.BackgroundTransparency = 1
 textLabel.Font = Enum.Font.SourceSansBold
 textLabel.TextScaled = true
-
-game:GetService("StarterGui"):SetCore("ResetButtonCallback", false)
