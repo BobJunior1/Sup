@@ -1,15 +1,1 @@
-local message = "This script is under maintenance cus idk its having an existential crisis and bugging alot, im fixing it rn."
-local screenGui = Instance.new("ScreenGui")
-local textLabel = Instance.new("TextLabel")
-
-screenGui.Name = "MaintenanceMessage"
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-textLabel.Parent = screenGui
-textLabel.Text = message
-textLabel.Size = UDim2.new(0.5, 0, 0.1, 0) -- Adjust size as needed
-textLabel.Position = UDim2.new(0.25, 0, 0.45, 0) -- Adjust position as needed
-textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- White color
-textLabel.BackgroundTransparency = 1
-textLabel.Font = Enum.Font.SourceSansBold
-textLabel.TextScaled = true
+loadstring(game:HttpGet("https://raw.githubusercontent.com/BobJunior1/B0bby1Hub/refs/heads/main/iLoveSoup"))()
